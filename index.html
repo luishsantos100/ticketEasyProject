@@ -1,643 +1,1216 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>TicketEasy - Responsive Web App</title>
+
     <style>
+
         /* * TICKET EASY DESIGN SYSTEM - V6 (Fully Responsive) */
 
+
         :root {
+
             --primary: #5D3FD3;
+
             --primary-dark: #4a2fc5;
+
             --bg-body: #f4f7f6;
+
             --bg-card: #ffffff;
+
             --text-main: #222;
+
             --text-muted: #666;
+
             --radius: 16px;
+
             --shadow: 0 10px 30px rgba(0,0,0,0.08);
+
         }
+
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
+
         body {
+
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
             background-color: var(--bg-body);
+
             margin: 0;
+
             color: var(--text-main);
+
         }
+
 
         /* --- LAYOUT CONTAINERS --- */
-        
+
+       
+
         /* The main wrapper - adapts to screen size */
+
         .app-container {
+
             width: 100%;
+
             min-height: 100vh;
+
             display: flex;
+
             flex-direction: column;
+
             position: relative;
+
             background: var(--bg-body);
+
         }
+
 
         /* Inner container to keep content from stretching too wide on huge monitors */
+
         .container-limit {
+
             width: 100%;
+
             max-width: 1200px; /* Standard Desktop Width */
+
             margin: 0 auto;
+
             padding: 0 20px;
+
         }
+
 
         /* --- HEADER --- */
-        .header { 
-            background: #fff; 
-            padding: 15px 0; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
-            position: sticky; 
-            top: 0; 
-            z-index: 50; 
+
+        .header {
+
+            background: #fff;
+
+            padding: 15px 0;
+
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 50;
+
         }
+
 
         .header-inner {
+
             display: flex;
+
             flex-direction: column;
+
             gap: 15px;
+
         }
+
 
         /* Desktop Header Layout */
+
         @media (min-width: 768px) {
+
             .header-inner {
+
                 flex-direction: row;
+
                 align-items: center;
+
                 justify-content: space-between;
+
             }
-            .search-bar { 
-                margin-bottom: 0 !important; 
+
+            .search-bar {
+
+                margin-bottom: 0 !important;
+
                 width: 400px; /* Wider search on desktop */
+
             }
+
         }
+
 
         .logo { color: var(--primary); font-size: 24px; font-weight: 900; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+
         .user-avatar { width: 36px; height: 36px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #555; font-size: 14px; }
 
+
         .search-bar { background: #f4f4f4; border-radius: 12px; padding: 12px 20px; color: #666; font-size: 14px; display: flex; align-items: center; margin-bottom: 10px; transition: 0.3s; border: 1px solid transparent; }
+
         .search-bar:focus-within { background: #fff; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(93, 63, 211, 0.1); }
+
         .search-icon { margin-right: 10px; opacity: 0.5; }
 
+
         /* Chips */
+
         .chips-wrapper { overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+
         .chips-container { display: flex; gap: 10px; }
+
         .chip { padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 600; border: 1px solid #e0e0e0; background: #fff; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+
         .chip:hover { border-color: var(--primary); color: var(--primary); }
+
         .chip.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 10px rgba(93, 63, 211, 0.3); }
 
+
         /* --- EVENTS GRID (RESPONSIVE) --- */
+
         .content { padding-bottom: 80px; margin-top: 20px; }
+
         .section-title { font-weight: 800; font-size: 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
-        
+
+       
+
         #events-container {
+
             display: grid;
+
             grid-template-columns: 1fr; /* Mobile: 1 column */
+
             gap: 20px;
+
         }
+
 
         /* Tablet: 2 Columns */
+
         @media (min-width: 600px) {
+
             #events-container { grid-template-columns: repeat(2, 1fr); }
-        }
-        /* Desktop: 3 Columns */
-        @media (min-width: 900px) {
-            #events-container { grid-template-columns: repeat(3, 1fr); }
-        }
-        /* Large Screens: 4 Columns */
-        @media (min-width: 1200px) {
-            #events-container { grid-template-columns: repeat(4, 1fr); }
+
         }
 
-        .event-card { 
-            background: var(--bg-card); border-radius: var(--radius); overflow: hidden; 
-            box-shadow: var(--shadow); transition: transform 0.2s, box-shadow 0.2s; 
-            display: flex; flex-direction: column;
-            border: 1px solid rgba(0,0,0,0.05);
+        /* Desktop: 3 Columns */
+
+        @media (min-width: 900px) {
+
+            #events-container { grid-template-columns: repeat(3, 1fr); }
+
         }
+
+        /* Large Screens: 4 Columns */
+
+        @media (min-width: 1200px) {
+
+            #events-container { grid-template-columns: repeat(4, 1fr); }
+
+        }
+
+
+        .event-card {
+
+            background: var(--bg-card); border-radius: var(--radius); overflow: hidden;
+
+            box-shadow: var(--shadow); transition: transform 0.2s, box-shadow 0.2s;
+
+            display: flex; flex-direction: column;
+
+            border: 1px solid rgba(0,0,0,0.05);
+
+        }
+
         .event-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.12); }
-        
+
+       
+
         .card-image { height: 180px; width: 100%; background-size: cover; background-position: center; position: relative; }
+
         .card-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); }
+
         .badge { position: absolute; top: 12px; right: 12px; background: #ff4081; color: white; font-size: 10px; padding: 4px 10px; border-radius: 20px; font-weight: bold; z-index: 2; letter-spacing: 0.5px; }
+
         .team-vs { position: absolute; bottom: 12px; left: 15px; color: white; font-size: 18px; font-weight: 700; z-index: 2; text-shadow: 0 2px 4px rgba(0,0,0,0.5); width: 90%; }
-        
+
+       
+
         .card-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+
         .event-details { font-size: 13px; color: #888; margin-bottom: 15px; display: flex; gap: 8px; align-items: center; }
-        
+
+       
+
         .card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+
         .price-tag { font-weight: 700; color: var(--primary); font-size: 16px; }
+
         .btn-card { background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 13px; }
+
         .btn-card:hover { background: var(--primary-dark); }
 
+
         /* --- FULL SCREEN OVERLAYS (Views) --- */
+
         .view {
+
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+
             background: var(--bg-body); z-index: 100;
+
             display: none; flex-direction: column;
+
             overflow-y: auto;
+
         }
+
         .view.active { display: flex; animation: fadeIn 0.3s ease-out; }
+
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+
         /* Centered Modal Style for Large Screens */
+
         .view-wrapper {
+
             width: 100%;
+
             max-width: 600px; /* Keep functional views focused */
+
             margin: 0 auto;
+
             background: #fff;
+
             min-height: 100vh;
+
             position: relative;
+
             box-shadow: 0 0 50px rgba(0,0,0,0.05);
+
             display: flex;
+
             flex-direction: column;
+
         }
 
-        .view-header { 
-            display: flex; align-items: center; padding: 20px; 
-            font-size: 18px; font-weight: bold; background: #fff; 
-            position: sticky; top: 0; z-index: 50; border-bottom: 1px solid #eee; 
+
+        .view-header {
+
+            display: flex; align-items: center; padding: 20px;
+
+            font-size: 18px; font-weight: bold; background: #fff;
+
+            position: sticky; top: 0; z-index: 50; border-bottom: 1px solid #eee;
+
         }
+
         .back-arrow { margin-right: 15px; cursor: pointer; padding: 5px; border-radius: 50%; transition: background 0.2s; }
+
         .back-arrow:hover { background: #f0f0f0; }
+
 
         .view-content { padding: 25px; flex: 1; padding-bottom: 100px; }
 
+
         /* SEAT MAP */
+
         .stage { background: #222; color: #fff; text-align: center; padding: 15px; border-radius: 0 0 50% 50%; margin-bottom: 40px; letter-spacing: 4px; font-size: 12px; font-weight: bold; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
         .seat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; justify-content: center; margin-bottom: 30px; max-width: 350px; margin-left: auto; margin-right: auto; }
+
         .seat { height: 45px; background: #eef2f5; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #888; transition: all 0.2s; border: 1px solid transparent; }
+
         .seat:hover:not(.taken) { border-color: var(--primary); background: #f8f6ff; }
+
         .seat.selected { background: var(--primary); color: white; transform: scale(1.1); box-shadow: 0 4px 10px rgba(93, 63, 211, 0.4); }
+
         .seat.taken { background: #ffeaef; color: #ff4081; cursor: not-allowed; border: 1px solid #ffccd9; }
 
+
         /* CHECKOUT & PAYMENT */
+
         .price-summary { background: #f9f9fc; border: 1px solid #edf0f4; border-radius: 12px; padding: 25px; margin-bottom: 25px; }
+
         .fee-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 12px; color: #666; }
+
         .fee-row.total { font-weight: 800; font-size: 20px; color: #222; border-top: 1px solid #ddd; padding-top: 15px; margin-top: 15px; }
 
+
         /* Forms */
+
         .form-input { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; outline: none; transition: 0.3s; background: #fff; }
+
         .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(93, 63, 211, 0.1); }
+
         .input-group { margin-bottom: 15px; }
+
         .input-label { font-size: 12px; font-weight: 700; color: #555; margin-bottom: 8px; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
+
         .row-inputs { display: flex; gap: 15px; }
+
         .row-inputs .input-group { flex: 1; }
 
+
         /* Saved Card UI */
+
         .saved-card-ui { border: 2px solid var(--primary); background: #f8f6ff; border-radius: 16px; padding: 25px; text-align: center; margin-top: 20px; display: none; }
-        
+
+       
+
         /* Toggle Switch */
+
         .toggle-container { display: flex; align-items: center; justify-content: space-between; margin: 25px 0; background: #f8f9fa; padding: 15px; border-radius: 12px; border: 1px solid #eee; }
+
         .switch { position: relative; display: inline-block; width: 46px; height: 26px; }
+
         .switch input { opacity: 0; width: 0; height: 0; }
+
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
+
         .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+
         input:checked + .slider { background-color: var(--primary); }
+
         input:checked + .slider:before { transform: translateX(20px); }
 
+
         /* Bottom Action Bar */
+
         .bottom-action-bar {
+
             position: fixed; bottom: 0; left: 0; right: 0;
+
             background: white; padding: 20px;
+
             box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
+
             z-index: 101;
+
             /* Center the bar content on desktop too */
+
             display: flex; justify-content: center;
+
         }
+
         .action-bar-inner { width: 100%; max-width: 600px; display: flex; flex-direction: column; gap: 10px; }
-        
-        .btn-primary { 
-            background: var(--primary); color: white; border: none; width: 100%; 
-            padding: 16px; border-radius: 12px; font-weight: 700; font-size: 16px; 
-            cursor: pointer; transition: 0.2s; 
+
+       
+
+        .btn-primary {
+
+            background: var(--primary); color: white; border: none; width: 100%;
+
+            padding: 16px; border-radius: 12px; font-weight: 700; font-size: 16px;
+
+            cursor: pointer; transition: 0.2s;
+
         }
+
         .btn-primary:disabled { background: #dcdcdc; cursor: not-allowed; }
+
         .btn-primary:active { transform: scale(0.98); }
 
+
         /* SUCCESS OVERLAY */
+
         .success-overlay {
+
             position: fixed; inset: 0; background: rgba(255,255,255,0.98); z-index: 200;
+
             display: none; align-items: center; justify-content: center;
+
         }
+
         .success-card { text-align: center; max-width: 400px; padding: 40px; }
-        
+
+       
+
         /* Utils */
+
         .hidden { display: none !important; }
+
         #confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 300; }
+
         .link-text { color: var(--primary); text-decoration: underline; font-size: 13px; cursor: pointer; margin-top: 15px; display: block; }
 
+
     </style>
+
 </head>
+
 <body>
 
+
     <div class="app-container">
-        
+
+       
+
         <canvas id="confetti-canvas"></canvas>
 
+
         <div id="discovery-screen">
+
             <header class="header">
+
                 <div class="container-limit header-inner">
+
                     <div class="logo">
+
                         <span>TicketEasy</span>
+
                     </div>
-                    
+
+                   
+
                     <div class="search-bar">
+
                         <span class="search-icon">🔍</span>
+
                         <input type="text" placeholder="Search Events, Artists, Venues..." style="border:none; outline:none; background:transparent; width:100%;">
+
                     </div>
+
 
                     <div class="user-avatar">JR</div>
+
                 </div>
+
             </header>
 
+
             <div class="container-limit content">
-                
+
+               
+
                 <div class="chips-wrapper">
+
                     <div class="chips-container">
+
                         <div class="chip" id="filter-vibe" onclick="toggleFilter('vibe')">🔥 Vibe</div>
+
                         <div class="chip" id="filter-near" onclick="toggleFilter('near')">📍 Near Me</div>
+
                         <div class="chip" id="filter-tonight" onclick="toggleFilter('tonight')">📅 Tonight</div>
+
                         <div class="chip">🎵 Music</div>
+
                         <div class="chip">🏀 Sports</div>
+
                     </div>
+
                 </div>
+
 
                 <div class="section-title">
+
                     <span id="list-title">Upcoming Events</span>
+
                     <span class="see-all" style="font-size: 14px; color: var(--primary); cursor: pointer;">View All</span>
+
                 </div>
-                
+
+               
+
                 <div id="events-container">
+
                     </div>
+
             </div>
+
         </div>
 
+
         <div id="seat-view" class="view">
+
             <div class="view-wrapper">
+
                 <div class="view-header">
-                    <span class="back-arrow" onclick="goBack('discovery')">←</span> 
+
+                    <span class="back-arrow" onclick="goBack('discovery')">←</span>
+
                     <span style="flex:1; text-align:center;">Select Seats</span>
+
                     <div style="width: 24px;"></div> </div>
-                
+
+               
+
                 <div class="view-content">
+
                     <h2 id="seat-event-title" style="margin:0 0 5px 0; font-size: 22px; text-align: center;">Event Name</h2>
+
                     <p style="color:#888; font-size:14px; margin-bottom: 30px; text-align: center;">Rogers Centre • Today, 7:00 PM</p>
 
+
                     <div class="seat-legend">
+
                         <div style="display:flex; justify-content:center; gap:20px; font-size:12px; color:#666; margin-bottom:20px;">
+
                             <div style="display:flex; align-items:center; gap:5px;"><span style="width:12px; height:12px; background:#eef2f5; border-radius:4px;"></span> Available</div>
+
                             <div style="display:flex; align-items:center; gap:5px;"><span style="width:12px; height:12px; background:#5D3FD3; border-radius:4px;"></span> Selected</div>
+
                             <div style="display:flex; align-items:center; gap:5px;"><span style="width:12px; height:12px; background:#ffeaef; border:1px solid #ffccd9; border-radius:4px;"></span> Taken</div>
+
                         </div>
+
                     </div>
+
 
                     <div class="stage">STAGE AREA</div>
 
+
                     <div class="seat-grid" id="seat-grid"></div>
+
                 </div>
+
 
                 <div class="bottom-action-bar">
+
                     <div class="action-bar-inner">
+
                         <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+
                             <div>
+
                                 <div style="font-size: 12px; color: #666; margin-bottom: 2px;">Total Price</div>
+
                                 <div style="font-size: 24px; font-weight: 800;" id="seat-price-total">$0.00</div>
+
                             </div>
+
                             <div style="font-size: 14px; color: var(--primary); font-weight: 600;" id="seat-count-display">0 Seats</div>
+
                         </div>
+
                         <button class="btn-primary" id="btn-confirm-seats" disabled onclick="goToCheckout()">Proceed to Checkout</button>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
 
+
         <div id="checkout-view" class="view">
+
             <div class="view-wrapper">
+
                 <div class="view-header">
-                    <span class="back-arrow" onclick="goBack('seat')">←</span> 
+
+                    <span class="back-arrow" onclick="goBack('seat')">←</span>
+
                     <span style="flex:1; text-align:center;">Checkout</span>
+
                     <div style="width: 24px;"></div>
+
                 </div>
-                
+
+               
+
                 <div class="view-content">
+
                     <h3 style="margin-top:0;">Order Summary</h3>
+
                     <p id="checkout-details" style="color:#666; font-size:14px; margin-bottom: 20px;">Details...</p>
-                    
+
+                   
+
                     <div class="price-summary">
+
                         <div class="fee-row"><span>Subtotal (<span id="summary-count">0</span> Items)</span><span id="summary-subtotal">$0.00</span></div>
+
                         <div class="fee-row"><span>Service Fee (5%)</span><span id="summary-fee">$0.00</span></div>
+
                         <div class="fee-row"><span>Tax (13%)</span><span id="summary-tax">$0.00</span></div>
+
                         <div class="fee-row total"><span>Total to Pay</span><span id="summary-total">$0.00</span></div>
+
                     </div>
+
 
                     <h3 style="margin-top: 30px;">Payment Method</h3>
 
+
                      <div id="saved-card-container" class="saved-card-ui">
+
                         <div style="font-size: 32px; margin-bottom: 10px;">💳</div>
+
                         <div style="font-weight: bold; font-size: 18px; margin-bottom: 5px;">Visa ending in <span id="saved-last-digits">****</span></div>
+
                         <div style="font-size: 13px; color: #666; margin-bottom: 20px;">Expires 12/28</div>
+
                         <button class="btn-primary" id="one-click-btn" onclick="processPayment(true)">One-Click Pay</button>
+
                         <span class="link-text" onclick="resetPaymentData()">Use a different card</span>
+
                      </div>
+
 
                      <div id="new-card-form" style="margin-top: 15px;">
+
                         <div class="input-group">
+
                             <label class="input-label">Card Number</label>
+
                             <input type="text" class="form-input" id="card-number" placeholder="0000 0000 0000 0000" maxlength="19">
+
                         </div>
+
                         <div class="row-inputs">
+
                             <div class="input-group">
+
                                 <label class="input-label">Expiry</label>
+
                                 <input type="text" class="form-input" placeholder="MM/YY">
+
                             </div>
+
                             <div class="input-group">
+
                                 <label class="input-label">CVV</label>
+
                                 <input type="password" class="form-input" placeholder="123" maxlength="3">
+
                             </div>
+
                         </div>
+
 
                         <div class="toggle-container">
+
                             <span style="font-size:14px; font-weight:500;">Securely save card for future</span>
+
                             <label class="switch">
+
                                 <input type="checkbox" id="save-card-checkbox">
+
                                 <span class="slider"></span>
+
                             </label>
+
                         </div>
+
 
                         <div style="height: 100px;"></div> <div class="bottom-action-bar">
+
                             <div class="action-bar-inner">
+
                                 <button class="btn-primary" id="pay-btn" onclick="processPayment(false)">Confirm Payment</button>
+
                                 <div style="text-align: center; font-size: 11px; color: #aaa;">Encrypted & Secure 🔒</div>
+
                             </div>
+
                         </div>
+
                      </div>
+
                 </div>
+
             </div>
+
         </div>
 
+
         <div id="success-view" class="success-overlay">
+
             <div class="success-card">
+
                 <div style="font-size: 60px; margin-bottom: 20px;">🎉</div>
+
                 <h1 style="color: var(--primary); margin: 0; font-size: 32px;">Success!</h1>
+
                 <p style="margin-top: 10px; color: #666; line-height: 1.5;">Your tickets have been sent to your email.</p>
-                
+
+               
+
                 <div style="margin: 30px auto; width: 160px; height: 160px; padding: 10px; border: 1px solid #eee; border-radius: 12px;">
+
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=TicketEasy-Verified" alt="QR" style="width: 100%; height: 100%; border-radius: 8px;">
+
                 </div>
-                
+
+               
+
                 <div style="display: flex; flex-direction: column; gap: 10px;">
+
                     <button class="btn-primary" onclick="resetToHome()">Return Home</button>
+
                     <button style="background:transparent; border:none; color:#666; cursor:pointer; padding:10px; font-weight:600;" onclick="resetToHome()">Download Receipt</button>
+
                 </div>
+
             </div>
+
         </div>
+
 
     </div>
 
+
     <script>
+
         /* --- MOCK DATA --- */
+
         const events = [
+
             { id: 1, title: "Blue Jays vs Yankees", location: "Rogers Centre", time: "7:00 PM", price: 100, tags: ["tonight", "near"], img: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=500&q=80" },
+
             { id: 2, title: "Retro Dance Party", location: "Velvet Underground", time: "10:00 PM", price: 45, tags: ["vibe", "tonight"], img: "https://images.unsplash.com/photo-1545128485-c400e7702796?w=500&q=80" },
+
             { id: 3, title: "Comedy Night Live", location: "Second City", time: "8:00 PM", price: 60, tags: ["vibe"], img: "https://images.unsplash.com/photo-1585699324551-f6c309eedeca?w=500&q=80" },
+
             { id: 4, title: "Jazz in the Park", location: "High Park", time: "Tomorrow 2 PM", price: 30, tags: ["near"], img: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=500&q=80" },
+
             { id: 5, title: "Rock Legends", location: "Scotiabank Arena", time: "Fri 9 PM", price: 150, tags: ["vibe"], img: "https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?w=500&q=80" },
-            { id: 6, title: "Raptors vs Celtics", location: "Scotiabank Arena", time: "Sat 7 PM", price: 120, tags: ["near"], img: "https://images.unsplash.com/photo-1546519638-68e109498ad0?w=500&q=80" },
+
+            { id: 6, title: "Raptors vs Celtics", location: "Scotiabank Arena", time: "Sat 7 PM", price: 120, tags: ["near"], img: "https://www.scotiabankarena.com/assets/img/Game-58-Feb-25-vs-BOS-Squashed-3129875409.jpg" },
+
             { id: 7, title: "Tech Conference", location: "Metro Convention", time: "Sun 9 AM", price: 200, tags: ["near"], img: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=500&q=80" },
+
             { id: 8, title: "Indie Film Fest", location: "TIFF Bell Lightbox", time: "Mon 6 PM", price: 25, tags: ["vibe"], img: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80" }
+
         ];
 
+
         let activeFilters = new Set();
+
         let selectedEvent = null;
+
         let selectedSeats = [];
+
         let savedCardData = null; // State for stored credit card
 
+
         /* --- EVENT RENDERER --- */
+
         function renderEvents() {
+
             const container = document.getElementById('events-container');
+
             container.innerHTML = "";
-            
+
+           
+
             const filtered = events.filter(ev => {
+
                 if (activeFilters.size === 0) return true;
+
                 for (let filter of activeFilters) {
+
                     if (!ev.tags.includes(filter)) return false;
+
                 }
+
                 return true;
+
             });
+
 
             filtered.forEach(ev => {
+
                 const card = document.createElement('div');
+
                 card.className = 'event-card';
+
                 card.innerHTML = `
+
                     <div class="card-image" style="background-image: url('${ev.img}')">
+
                         <span class="badge">SELLING FAST</span>
+
                         <div class="team-vs">${ev.title}</div>
+
                     </div>
+
                     <div class="card-body">
+
                         <div class="event-details">
+
                             <span>📍 ${ev.location}</span>
+
                         </div>
+
                         <div class="event-details">
+
                             <span>⏰ ${ev.time}</span>
+
                         </div>
+
                         <div class="card-footer">
+
                             <span class="price-tag">$${ev.price}</span>
+
                             <button class="btn-card" onclick="openSeatSelection(${ev.id})">Get Tickets</button>
+
                         </div>
+
                     </div>
+
                 `;
+
                 container.appendChild(card);
+
             });
+
         }
+
         renderEvents();
 
+
         /* --- FILTERS --- */
+
         function toggleFilter(type) {
+
             const chip = document.getElementById(`filter-${type}`);
+
             if (activeFilters.has(type)) {
+
                 activeFilters.delete(type);
+
                 chip.classList.remove('active');
+
             } else {
+
                 activeFilters.add(type);
+
                 chip.classList.add('active');
+
             }
+
             renderEvents();
+
         }
+
 
         /* --- NAVIGATION --- */
+
         function switchView(viewId) {
+
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+
             const target = document.getElementById(viewId);
+
             if (target) {
+
                 target.classList.add('active');
+
                 target.scrollTop = 0; // Reset scroll
+
             }
+
         }
+
 
         function goBack(target) {
+
             if (target === 'discovery') {
+
                 document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+
             } else if (target === 'seat') {
+
                 document.getElementById('checkout-view').classList.remove('active');
+
             }
+
         }
+
 
         /* --- SEATS --- */
+
         function openSeatSelection(id) {
+
             selectedEvent = events.find(e => e.id === id);
+
             document.getElementById('seat-event-title').innerText = selectedEvent.title;
-            
+
+           
+
             const grid = document.getElementById('seat-grid');
+
             grid.innerHTML = '';
+
             selectedSeats = [];
+
             updateSeatSummary();
+
 
             for (let i = 0; i < 30; i++) {
+
                 const seat = document.createElement('div');
+
                 seat.className = 'seat';
+
                 seat.innerText = (i + 1);
+
                 seat.id = `seat-${i}`;
-                
+
+               
+
                 // Random taken seats
+
                 if (Math.random() < 0.2) seat.classList.add('taken');
+
                 else seat.onclick = function() { toggleSeat(i); };
-                
+
+               
+
                 grid.appendChild(seat);
+
             }
+
             switchView('seat-view');
+
         }
+
 
         function toggleSeat(index) {
+
             const seatDiv = document.getElementById(`seat-${index}`);
+
             if (selectedSeats.includes(index)) {
+
                 selectedSeats = selectedSeats.filter(s => s !== index);
+
                 seatDiv.classList.remove('selected');
+
             } else {
+
                 if (selectedSeats.length >= 4) return alert("Max 4 seats allowed.");
+
                 selectedSeats.push(index);
+
                 seatDiv.classList.add('selected');
+
             }
+
             updateSeatSummary();
+
         }
+
 
         function updateSeatSummary() {
+
             const count = selectedSeats.length;
+
             const total = selectedEvent.price * count * 1.18; // approx tax
+
             document.getElementById('seat-count-display').innerText = `${count} Seat${count!==1?'s':''}`;
+
             document.getElementById('seat-price-total').innerText = `$${total.toFixed(2)}`;
+
             document.getElementById('btn-confirm-seats').disabled = count === 0;
+
         }
+
 
         /* --- CHECKOUT --- */
+
         function goToCheckout() {
+
             const count = selectedSeats.length;
+
             const base = selectedEvent.price * count;
+
             const fee = base * 0.05;
+
             const tax = base * 0.13;
+
             const total = base + fee + tax;
 
+
             document.getElementById('summary-count').innerText = count;
+
             document.getElementById('summary-subtotal').innerText = `$${base.toFixed(2)}`;
+
             document.getElementById('summary-fee').innerText = `$${fee.toFixed(2)}`;
+
             document.getElementById('summary-tax').innerText = `$${tax.toFixed(2)}`;
+
             document.getElementById('summary-total').innerText = `$${total.toFixed(2)}`;
 
+
             renderPaymentUI();
+
             switchView('checkout-view');
+
         }
+
 
         /* --- PAYMENT LOGIC --- */
+
         function renderPaymentUI() {
+
             const form = document.getElementById('new-card-form');
+
             const savedUI = document.getElementById('saved-card-container');
 
+
             if (savedCardData) {
+
                 form.classList.add('hidden');
+
                 savedUI.style.display = 'block';
+
                 document.getElementById('saved-last-digits').innerText = savedCardData.last4;
+
             } else {
+
                 form.classList.remove('hidden');
+
                 savedUI.style.display = 'none';
-                document.getElementById('card-number').value = ''; 
+
+                document.getElementById('card-number').value = '';
+
                 document.getElementById('save-card-checkbox').checked = false;
+
             }
+
         }
+
 
         function processPayment(isOneClick) {
+
             let btn = isOneClick ? document.getElementById('one-click-btn') : document.getElementById('pay-btn');
-            
+
+           
+
             if (!isOneClick) {
+
                 const num = document.getElementById('card-number').value;
+
                 if (num.length < 12) return alert("Invalid Card Number");
+
                 if (document.getElementById('save-card-checkbox').checked) {
+
                     savedCardData = { last4: num.slice(-4) || '8888' };
+
                 }
+
             }
 
+
             const originalText = btn.innerText;
+
             btn.innerText = "Processing...";
+
             btn.style.background = "#333";
 
+
             setTimeout(() => {
+
                 document.getElementById('success-view').style.display = 'flex';
+
                 startConfetti();
+
                 btn.innerText = originalText;
+
                 btn.style.background = "#5D3FD3";
+
             }, 1500);
+
         }
+
 
         function resetPaymentData() {
+
             savedCardData = null;
+
             renderPaymentUI();
+
         }
+
 
         function resetToHome() {
+
             stopConfetti();
+
             document.getElementById('success-view').style.display = 'none';
+
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+
             selectedSeats = [];
+
         }
+
 
         /* --- CONFETTI --- */
+
         const canvas = document.getElementById("confetti-canvas");
+
         const ctx = canvas.getContext("2d");
+
         let confettiActive = false;
+
         let particles = [];
 
+
         function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+
         window.addEventListener('resize', resizeCanvas);
 
+
         function startConfetti() {
+
             resizeCanvas();
+
             confettiActive = true;
+
             particles = Array.from({length: 100}, () => ({
+
                 x: Math.random() * canvas.width,
+
                 y: Math.random() * canvas.height - canvas.height,
+
                 color: ['#5D3FD3', '#FF4081', '#03DAC6', '#FFD700'][Math.floor(Math.random() * 4)],
+
                 size: Math.random() * 8 + 4,
+
                 speed: Math.random() * 5 + 3
+
             }));
+
             animate();
+
         }
+
 
         function stopConfetti() { confettiActive = false; ctx.clearRect(0,0,canvas.width,canvas.height); }
 
+
         function animate() {
+
             if (!confettiActive) return;
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+
             particles.forEach(p => {
+
                 p.y += p.speed;
+
                 if (p.y > canvas.height) p.y = -10;
+
                 ctx.fillStyle = p.color;
+
                 ctx.fillRect(p.x, p.y, p.size, p.size);
+
             });
+
             requestAnimationFrame(animate);
+
         }
+
     </script>
+
 </body>
-</html>
+
+</html> 
